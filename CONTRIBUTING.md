@@ -136,7 +136,7 @@ must carry a `Signed-off-by:` trailer certifying the
 assertion that you have the right to submit the change under the project's
 license. Sign off each commit with:
 
-```
+```bash
 git commit -s
 ```
 
