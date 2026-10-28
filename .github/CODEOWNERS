@@ -1,2 +1,2 @@
-# Repository Maintainers; see /MAINTAINERS.md.
-* @agentnameservice/trust-index-spec-maintainers
+# Review routing; merge permissions are managed separately.
+* @agentnameservice/trust-index-spec-maintainers @agentnameservice/tsc-owners
