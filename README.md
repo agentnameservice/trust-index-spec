@@ -80,7 +80,7 @@ normatively.
 The Trust Index consumes the Agent Name Service rather than forming a layer of
 it. ANS provides the sealed registration events, dual certificates, and DNS
 records that a Trust Index scores; the protocol itself lives in
-[agentnameservice/ans-registry](https://github.com/agentnameservice/ans-registry)
+[agentnameservice/ans-spec](https://github.com/agentnameservice/ans-spec)
 as the layered ANS-0 through ANS-6 specifications. Section 1.4 maps each ANS
 concept to the dimension it feeds.
 
