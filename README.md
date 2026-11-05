@@ -80,7 +80,7 @@ normatively.
 The Trust Index consumes the Agent Name Service rather than forming a layer of
 it. ANS provides the sealed registration events, dual certificates, and DNS
 records that a Trust Index scores; the protocol itself lives in
-[agentnameservice/ans-registry](https://github.com/agentnameservice/ans-registry)
+[agentnameservice/ans-spec](https://github.com/agentnameservice/ans-spec)
 as the layered ANS-0 through ANS-6 specifications. Section 1.4 maps each ANS
 concept to the dimension it feeds.
 
@@ -93,14 +93,11 @@ explainable five-dimension trust scores through a search API.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). Every commit needs a `Signed-off-by:`
-trailer (`git commit -s`) for the Developer Certificate of Origin, every pull
-request needs an issue reference, and AI-assisted contributions are welcome with
-disclosure. Participation is governed by our
-[Code of Conduct](./CODE_OF_CONDUCT.md).
-
-Please do not report security issues in the issue tracker — see
-[SECURITY.md](./SECURITY.md) for the private disclosure process.
+This repository follows [ANS governance](https://github.com/agentnameservice/governance/blob/main/GOVERNANCE.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance and
+[MAINTAINERS.md](MAINTAINERS.md) for the repository's Maintainers.
+The [Code of Conduct](CODE_OF_CONDUCT.md) applies to participation;
+report vulnerabilities privately using [SECURITY.md](SECURITY.md).
 
 ## License
 
