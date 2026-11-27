@@ -1,9 +1,11 @@
 # Trust Index Open Specification
 
-Version 1.1.0 | 2026-03-20
+Version 1.2.0 | 2026-11-25
 
-*Spec version 1.1.0 defines Trust Manifest schema version 1.0.0.
+*Spec version 1.2.0 defines Trust Manifest schema version 1.1.0.
 Non-breaking spec revisions do not bump the schema version.*
+
+*Changes in 1.2.0: Appendix B `signalProvenance` items gain optional `reportHash` and `attestedAt`, copied verbatim from the attested manifest block; Appendix A adds a SHOULD on the form of `reportHash`. Both are additive and optional, so existing manifests and evaluation payloads remain valid without migration. Because Appendix B gains fields, both versions are bumped: the Trust Manifest schema is now 1.1.0, and `manifestVersion` accepts "1.0.0" and "1.1.0", so a 1.0.0 manifest validates unchanged. Migration path: none required; issuers MAY emit "1.1.0" once they populate the new fields.*
 
 ---
 
@@ -956,12 +958,12 @@ This is the canonical schema. Where inline descriptions in the specification bod
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ans.schema.org/trust-manifest/v1.0.0",
-  "title": "ANS Trust Manifest v1.0.0",
+  "$id": "https://ans.schema.org/trust-manifest/v1.1.0",
+  "title": "ANS Trust Manifest v1.1.0",
   "type": "object",
   "required": ["manifestVersion", "agentIdentity", "attestationLevel", "timestamps"],
   "properties": {
-    "manifestVersion": { "const": "1.0.0" },
+    "manifestVersion": { "enum": ["1.0.0", "1.1.0"] },
     "agentIdentity": {
       "type": "object",
       "required": ["ansName"],
@@ -1216,7 +1218,7 @@ This is the canonical schema. Where inline descriptions in the specification bod
               "description": "When standard is CUSTOM, a URI where a TI can fetch the taxonomy definition."
             },
             "auditorDid": { "type": "string" },
-            "reportHash": { "type": "string" },
+            "reportHash": { "type": "string", "description": "SHA-256 of the report file as the source issued it. SHOULD use the SHA256:<hex> form used for modelCheckpointHash. Identifies the report, so it stays the same when the report is signed again." },
             "passedAt": { "type": "string", "format": "date-time" },
             "provenance": {
               "type": "object",
@@ -1260,7 +1262,7 @@ This is the canonical schema. Where inline descriptions in the specification bod
           "type": "object",
           "properties": {
             "auditor": { "type": "string" },
-            "reportHash": { "type": "string" },
+            "reportHash": { "type": "string", "description": "SHA-256 of the report file as the source issued it. SHOULD use the SHA256:<hex> form used for modelCheckpointHash. Identifies the report, so it stays the same when the report is signed again." },
             "auditedAt": { "type": "string", "format": "date-time" },
             "provenance": {
               "type": "object",
@@ -1282,7 +1284,7 @@ This is the canonical schema. Where inline descriptions in the specification bod
             "properties": {
               "standard": { "enum": ["SOC2_TYPE1", "SOC2_TYPE2", "HIPAA", "ISO27001", "GDPR", "PCI_DSS"] },
               "issuer": { "type": "string" },
-              "reportHash": { "type": "string" },
+              "reportHash": { "type": "string", "description": "SHA-256 of the report file as the source issued it. SHOULD use the SHA256:<hex> form used for modelCheckpointHash. Identifies the report, so it stays the same when the report is signed again." },
               "validUntil": { "type": "string", "format": "date-time" },
               "provenance": {
                 "type": "object",
@@ -1360,7 +1362,16 @@ This is the canonical schema. Where inline descriptions in the specification bod
           "dimension": { "enum": ["integrity", "identity", "solvency", "behavior", "safety"] },
           "signal": { "type": "string" },
           "source": { "type": "string" },
-          "accredited": { "type": "boolean" }
+          "accredited": { "type": "boolean" },
+          "reportHash": {
+            "type": "string",
+            "description": "Copied verbatim from the attested block's reportHash, when the block carries one."
+          },
+          "attestedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The attested block's own attestation time (auditedAt for securityAudit, passedAt for guardrailCertification). Omitted when the source block carries no attestation date."
+          }
         }
       }
     },
